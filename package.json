@@ -1,0 +1,15 @@
+{
+  "name": "privatekey2",
+  "version": "1.0.0",
+  "description": "brute force recover private key",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sven Meyer",
+  "license": "ISC",
+  "dependencies": {
+    "ethereumjs-wallet": "^0.6.3",
+    "ethers": "^4.0.46"
+  }
+}
