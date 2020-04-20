@@ -1,13 +1,18 @@
 // https://ethereum.stackexchange.com/questions/1771/how-to-validate-a-private-key
 
-const public_address = 'af7560c61fc7d3d4404e8403b7b9194d62d7be2e'.toLowerCase();
+
 const private_key = '3334057ece90ab38e401718737636c4ebb8c623f82382c6aa53c309bf0d6ec62';
-const pk          = '0000007ece90ab38e401718737636c4ebb8c623f82382c6aa53c309bf0d6ec62';
+var pk            = '3334057ece90ab38e401718737636c4ebb8c623f82382c6aa53c309bf0';
+var public_address = 'af7560c61fc7d3d4404e8403b7b9194d62d7be2e'.toLowerCase();
 
 if (process.argv.length == 4) {
-	console.log("parameter 1 :", process.argv[2])
-	console.log("parameter 2 :", process.argv[3])
+	public_address = process.argv[2].toLowerCase();
+	pk = process.argv[3];
 }
+pk = pk.padEnd(64,'0');
+
+console.log("public_address :", public_address)
+console.log("private_key    :", pk)
 
 const secp256k1 = require('secp256k1')
 const ethereumjsWallet = require('ethereumjs-wallet')
@@ -21,15 +26,15 @@ const public_address_buf = Buffer.from(public_address, 'hex');
 console.log("public_address_buf :", public_address_buf)
 
 var n=0;
-for (let x = 60; x >= 0; x--) {
-	pk_buf[0] = x;
-	console.log("x =", x)
+for (let x = 255; x >= 0; x--) {
+	pk_buf[29] = x;
+	console.log(x , pk_buf)
 
-	for (let y = 0; y < 256; y++) {
-		pk_buf[1] = y;
+	for (let y = 255; y >= 0; y--) {
+		pk_buf[30] = y;
 
-		for (let z = 0; z < 256; z++) {
-			pk_buf[2] = z;
+		for (let z = 255; z >= 0; z--) {
+			pk_buf[31] = z;
 
 			r = ethereumjsWallet.fromPrivateKey(pk_buf)
 			n++;
@@ -40,9 +45,9 @@ for (let x = 60; x >= 0; x--) {
 				// console.log("Public Key     :", r.getPublicKey().toString('hex'))
 				console.log("private key    :", r.getPrivateKey().toString('hex'))
 				console.log(n , " combinations tested");
-				x =  -1;
-				y = 256;
-				z = 256;
+				x = -1;
+				y = -1;
+				z = -1;
 			}
 		}
 	}
