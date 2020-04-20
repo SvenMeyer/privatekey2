@@ -1,12 +1,14 @@
 # brute force find private key
 
+brute force try last 6 digits of ethereum private key
+
 ## input
 - public ethereum address
 - private key with last 6 digits unknown
 
 tested with node v8.17.0 and v12.16.1
 
-usage
+### usage
 
 ```
 node index.js <public address> <private key first 58 digits>

@@ -9,6 +9,19 @@ if (process.argv.length == 4) {
 	public_address = process.argv[2].toLowerCase();
 	pk = process.argv[3];
 }
+
+if (public_address.length != 40) {
+	throw("ERROR : input parameter public address is not 40 digits. Length = " + public_address.length)
+}
+
+if (pk.length > 64) {
+	throw("ERROR : input parameter private key is longer than 64 digits. Length = " + pk.length)
+}
+
+if (pk.length < 58) {
+	throw("ERROR : input parameter private key is shorter than 58 digits. Length = " + pk.length)
+}
+
 pk = pk.padEnd(64,'0');
 
 console.log("public_address :", public_address)
